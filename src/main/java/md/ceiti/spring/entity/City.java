@@ -1,6 +1,7 @@
 package md.ceiti.spring.entity;
 
 import jakarta.persistence.*;
+import md.ceiti.spring.entity.dto.city.CityDto;
 
 @Entity
 @Table(name = "cities")
@@ -48,5 +49,13 @@ public class City {
 
     public void setCountry(Country country) {
         this.country = country;
+    }
+
+    public CityDto toDto(){
+        return new CityDto(
+                cityId,
+                cityName,
+                country
+        );
     }
 }
