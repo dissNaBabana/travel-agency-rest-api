@@ -33,4 +33,9 @@ public class CountryController {
         return countryService.save(request);
     }
 
+    @PutMapping("/{id}")
+    public CountryDto update(@PathVariable Integer id, @RequestBody CountryRequest request){
+        return countryService.update(id, request);
+    }
+
 }

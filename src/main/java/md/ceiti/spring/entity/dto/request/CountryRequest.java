@@ -16,7 +16,7 @@ public class CountryRequest {
     public Country toEntity(){
         return new Country(countryName);
     }
-    public Country toEntity(Integer id){
-        return new Country(id,countryName);
+    public Country toEntity(Integer id, String countryName){
+        return new Country(id, countryName);
     }
 }

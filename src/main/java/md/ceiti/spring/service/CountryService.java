@@ -37,4 +37,13 @@ public class CountryService {
         Country country = request.toEntity();
         return countryRepository.save(country).toDto();
     }
+
+    public CountryDto update(Integer id, CountryRequest request){
+        return countryRepository.findById(id)
+                .map(existingCountry -> {
+                    Country updatedCountry = request.toEntity(existingCountry.getCountryId(), request.getCountryName());
+                    return countryRepository.save(updatedCountry).toDto();
+                })
+                .orElseThrow(() -> new IllegalArgumentException("Country with id" + id + "not founded"));
+    }
 }
