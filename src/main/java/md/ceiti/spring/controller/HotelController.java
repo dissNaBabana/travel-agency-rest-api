@@ -34,10 +34,10 @@ public class HotelController {
     public HotelDto save( @RequestBody HotelRequest request){
         return hotelService.save(request);
     }
-//
-//    @PutMapping("/{id}")
-//    public CityDto update(@PathVariable Integer id, @RequestBody CityRequest request){
-//        return cityService.update(id, request);
-//    }
+
+    @PutMapping("/{id}")
+    public HotelDto update(@PathVariable Integer id, @RequestBody HotelRequest request){
+        return hotelService.update(id, request);
+    }
 
 }

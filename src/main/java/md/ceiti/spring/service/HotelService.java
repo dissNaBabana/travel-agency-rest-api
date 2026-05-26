@@ -48,4 +48,15 @@ public class HotelService {
         Hotel hotel = request.toEntity(city);
         return hotelRepository.save(hotel).toDto();
     }
+
+    public HotelDto update(Integer id, HotelRequest request){
+        City city = cityRepository.findById(request.getCityId())
+                .orElseThrow(() -> new IllegalArgumentException("City with id " + request.getCityId() + " not found"));;
+        return hotelRepository.findById(id)
+                .map(existingHotel -> {
+                    Hotel updatedHotel = request.toEntity(existingHotel.getHotelId(), city);
+                    return hotelRepository.save(updatedHotel).toDto();
+                })
+                .orElseThrow(() -> new IllegalArgumentException("City with id" + id + "not founded"));
+    }
 }
