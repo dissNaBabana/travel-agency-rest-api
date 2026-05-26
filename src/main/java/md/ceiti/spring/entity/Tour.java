@@ -1,6 +1,7 @@
 package md.ceiti.spring.entity;
 
 import jakarta.persistence.*;
+import md.ceiti.spring.entity.dto.tour.TourDto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -25,7 +26,7 @@ public class Tour {
 
     @ManyToOne
     @JoinColumn(name = "hotel_id")
-    private Hotel hotelId;
+    private Hotel hotel;
 
     @Column(name = "price")
     private BigDecimal price;
@@ -53,12 +54,12 @@ public class Tour {
     public Tour() {
     }
 
-    public Tour(Integer tourId, String title, String description, Country country, Hotel hotelId, BigDecimal price, LocalDate startDate, LocalDate endDate, Integer maxPeople, Integer availablePlaces, Boolean isHot, LocalDate createdAt) {
+    public Tour(Integer tourId, String title, String description, Country country, Hotel hotel, BigDecimal price, LocalDate startDate, LocalDate endDate, Integer maxPeople, Integer availablePlaces, Boolean isHot, LocalDate createdAt) {
         this.tourId = tourId;
         this.title = title;
         this.description = description;
         this.country = country;
-        this.hotelId = hotelId;
+        this.hotel = hotel;
         this.price = price;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -101,11 +102,11 @@ public class Tour {
     }
 
     public Hotel getHotelId() {
-        return hotelId;
+        return hotel;
     }
 
     public void setHotelId(Hotel hotelId) {
-        this.hotelId = hotelId;
+        this.hotel = hotelId;
     }
 
     public BigDecimal getPrice() {
@@ -163,4 +164,21 @@ public class Tour {
     public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
+
+    public TourDto toDto(){
+        return new TourDto(
+                tourId,
+                title,
+                description,
+                country.getCountryId(),
+                hotel.getHotelId(),
+                price,
+                startDate,
+                endDate,
+                maxPeople,
+                availablePlaces,
+                isHot,
+                createdAt );
+    }
+
 }

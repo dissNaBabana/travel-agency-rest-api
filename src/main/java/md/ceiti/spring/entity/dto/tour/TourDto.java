@@ -11,8 +11,8 @@ public class TourDto {
          private Integer tourId;
         private String title;
         private String description;
-        private Country country;
-        private Hotel hotelId;
+        private Integer countryId;
+        private Integer hotelId;
         private BigDecimal price;
         private LocalDate startDate;
         private LocalDate endDate;
@@ -21,11 +21,11 @@ public class TourDto {
         private Boolean isHot;
         private LocalDate createdAt;
 
-    public TourDto(Integer tourId, String title, String description, Country country, Hotel hotelId, BigDecimal price, LocalDate startDate, LocalDate endDate, Integer maxPeople, Integer availablePlaces, Boolean isHot, LocalDate createdAt) {
+    public TourDto(Integer tourId, String title, String description, Integer countryId, Integer hotelId, BigDecimal price, LocalDate startDate, LocalDate endDate, Integer maxPeople, Integer availablePlaces, Boolean isHot, LocalDate createdAt) {
         this.tourId = tourId;
         this.title = title;
         this.description = description;
-        this.country = country;
+        this.countryId = countryId;
         this.hotelId = hotelId;
         this.price = price;
         this.startDate = startDate;
@@ -48,11 +48,11 @@ public class TourDto {
         return description;
     }
 
-    public Country getCountry() {
-        return country;
+    public Integer getCountryId() {
+        return countryId;
     }
 
-    public Hotel getHotelId() {
+    public Integer getHotelId() {
         return hotelId;
     }
 

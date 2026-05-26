@@ -6,15 +6,15 @@ import java.time.LocalDate;
 public class TourCreateDto {
     private String title;
     private String description;
-    private Long countryId;
-    private Long hotelId;
+    private Integer countryId;
+    private Integer hotelId;
     private BigDecimal price;
     private LocalDate startDate;
     private LocalDate endDate;
     private Integer maxPeople;
     private Boolean isHot;
 
-    public TourCreateDto(String title, String description, Long countryId, Long hotelId, BigDecimal price, LocalDate startDate, LocalDate endDate, Integer maxPeople, Boolean isHot) {
+    public TourCreateDto(String title, String description, Integer countryId, Integer hotelId, BigDecimal price, LocalDate startDate, LocalDate endDate, Integer maxPeople, Boolean isHot) {
         this.title = title;
         this.description = description;
         this.countryId = countryId;
@@ -34,11 +34,11 @@ public class TourCreateDto {
         return description;
     }
 
-    public Long getCountryId() {
+    public Integer getCountryId() {
         return countryId;
     }
 
-    public Long getHotelId() {
+    public Integer getHotelId() {
         return hotelId;
     }
 
