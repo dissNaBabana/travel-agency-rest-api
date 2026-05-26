@@ -42,4 +42,13 @@ public class CityService {
         City city = request.toEntity();
         return cityRepository.save(city).toDto();
     }
+
+    public CityDto update(Integer id, CityRequest request){
+        return cityRepository.findById(id)
+                .map(existingCity -> {
+                    City updatedCity = request.toEntity(existingCity.getCityId());
+                    return cityRepository.save(updatedCity).toDto();
+                })
+                .orElseThrow(() -> new IllegalArgumentException("City with id" + id + "not founded"));
+    }
 }

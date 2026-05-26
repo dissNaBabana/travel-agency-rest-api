@@ -35,4 +35,9 @@ public class CityController {
         return cityService.save(request);
     }
 
+    @PutMapping("/{id}")
+    public CityDto update(@PathVariable Integer id, @RequestBody CityRequest request){
+        return cityService.update(id, request);
+    }
+
 }

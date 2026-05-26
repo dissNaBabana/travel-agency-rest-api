@@ -29,6 +29,7 @@ public class CityRequest {
 
     public City toEntity(Integer id){
         return new City(
+                id,
                 cityName,
                 country
         );
