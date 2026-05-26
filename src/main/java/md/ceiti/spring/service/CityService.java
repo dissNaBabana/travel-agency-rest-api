@@ -6,6 +6,8 @@ import md.ceiti.spring.entity.dto.city.CityContainerDto;
 import md.ceiti.spring.entity.dto.city.CityDto;
 import md.ceiti.spring.entity.dto.country.CountryContainerDto;
 import md.ceiti.spring.entity.dto.country.CountryDto;
+import md.ceiti.spring.entity.dto.request.CityRequest;
+import md.ceiti.spring.entity.dto.request.CountryRequest;
 import md.ceiti.spring.repository.CityRepository;
 import md.ceiti.spring.repository.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +36,10 @@ public class CityService {
         return cityRepository.findById(id)
                 .map(City::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("City with id" + id + "not founded"));
+    }
+
+    public CityDto save(CityRequest request){
+        City city = request.toEntity();
+        return cityRepository.save(city).toDto();
     }
 }

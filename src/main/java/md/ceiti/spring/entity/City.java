@@ -27,6 +27,11 @@ public class City {
         this.country = country;
     }
 
+    public City(String cityName, Country country) {
+        this.cityName = cityName;
+        this.country = country;
+    }
+
     public Integer getCityId() {
         return cityId;
     }
