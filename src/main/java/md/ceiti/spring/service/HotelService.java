@@ -1,7 +1,9 @@
 package md.ceiti.spring.service;
 
+import md.ceiti.spring.entity.City;
 import md.ceiti.spring.entity.Country;
 import md.ceiti.spring.entity.Hotel;
+import md.ceiti.spring.entity.dto.city.CityDto;
 import md.ceiti.spring.entity.dto.country.CountryContainerDto;
 import md.ceiti.spring.entity.dto.country.CountryDto;
 import md.ceiti.spring.entity.dto.hotel.HotelContainerDto;
@@ -27,5 +29,11 @@ public class HotelService {
                 .map(Hotel::toDto)
                 .collect(Collectors.toList());
         return new HotelContainerDto(hotels);
+    }
+
+    public HotelDto findById(Integer id){
+        return hotelRepository.findById(id)
+                .map(Hotel::toDto)
+                .orElseThrow(() -> new IllegalArgumentException("Hotel with id" + id + "not founded"));
     }
 }

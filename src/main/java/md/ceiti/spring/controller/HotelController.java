@@ -1,12 +1,12 @@
 package md.ceiti.spring.controller;
 
-import md.ceiti.spring.entity.dto.city.CityContainerDto;
+import md.ceiti.spring.entity.dto.city.CityDto;
 import md.ceiti.spring.entity.dto.hotel.HotelContainerDto;
+import md.ceiti.spring.entity.dto.hotel.HotelDto;
+import md.ceiti.spring.entity.dto.request.CityRequest;
 import md.ceiti.spring.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/hotels")
@@ -22,5 +22,21 @@ public class HotelController {
     public HotelContainerDto findAll(){
         return hotelService.findAll();
     }
+
+    @GetMapping("/{id}")
+    public HotelDto findById(@PathVariable Integer id){
+
+        return hotelService.findById(id);
+    }
+
+//    @PostMapping()
+//    public CityDto save( @RequestBody CityRequest request){
+//        return cityService.save(request);
+//    }
+//
+//    @PutMapping("/{id}")
+//    public CityDto update(@PathVariable Integer id, @RequestBody CityRequest request){
+//        return cityService.update(id, request);
+//    }
 
 }
