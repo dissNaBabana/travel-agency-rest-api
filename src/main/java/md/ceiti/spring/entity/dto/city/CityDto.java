@@ -3,17 +3,17 @@ package md.ceiti.spring.entity.dto.city;
 import md.ceiti.spring.entity.Country;
 
 public class CityDto {
-        private Long cityId;
+        private Integer cityId;
         private String cityName;
         private Country country;
 
-    public CityDto(Long cityId, String cityName, Country country) {
+    public CityDto(Integer cityId, String cityName, Country country) {
         this.cityId = cityId;
         this.cityName = cityName;
         this.country = country;
     }
 
-    public Long getCityId() {
+    public Integer getCityId() {
         return cityId;
     }
 

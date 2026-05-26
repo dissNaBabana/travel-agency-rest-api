@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class TourDto {
-         private Long tourId;
+         private Integer tourId;
         private String title;
         private String description;
         private Country country;
@@ -21,7 +21,7 @@ public class TourDto {
         private Boolean isHot;
         private LocalDate createdAt;
 
-    public TourDto(Long tourId, String title, String description, Country country, Hotel hotelId, BigDecimal price, LocalDate startDate, LocalDate endDate, Integer maxPeople, Integer availablePlaces, Boolean isHot, LocalDate createdAt) {
+    public TourDto(Integer tourId, String title, String description, Country country, Hotel hotelId, BigDecimal price, LocalDate startDate, LocalDate endDate, Integer maxPeople, Integer availablePlaces, Boolean isHot, LocalDate createdAt) {
         this.tourId = tourId;
         this.title = title;
         this.description = description;
@@ -36,7 +36,7 @@ public class TourDto {
         this.createdAt = createdAt;
     }
 
-    public Long getTourId() {
+    public Integer getTourId() {
         return tourId;
     }
 

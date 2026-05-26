@@ -11,7 +11,7 @@ public class Tour {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tour_id")
-    private Long tourId;
+    private Integer tourId;
 
     @Column(name = "title")
     private String title;
@@ -45,8 +45,60 @@ public class Tour {
     @Column(name = "is_hot")
     private Boolean isHot;
 
+
     @Column(name = "created_at")
     private LocalDate createdAt;
+
+
+    public Tour() {
+    }
+
+    public Tour(Integer tourId, String title, String description, Country country, Hotel hotelId, BigDecimal price, LocalDate startDate, LocalDate endDate, Integer maxPeople, Integer availablePlaces, Boolean isHot, LocalDate createdAt) {
+        this.tourId = tourId;
+        this.title = title;
+        this.description = description;
+        this.country = country;
+        this.hotelId = hotelId;
+        this.price = price;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.maxPeople = maxPeople;
+        this.availablePlaces = availablePlaces;
+        this.isHot = isHot;
+        this.createdAt = createdAt;
+    }
+
+    public Integer getTourId() {
+        return tourId;
+    }
+
+    public void setTourId(Integer tourId) {
+        this.tourId = tourId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
 
     public Hotel getHotelId() {
         return hotelId;
@@ -56,11 +108,59 @@ public class Tour {
         this.hotelId = hotelId;
     }
 
-    public Country getCountry() {
-        return country;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public void setCountry(Country country) {
-        this.country = country;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public Integer getMaxPeople() {
+        return maxPeople;
+    }
+
+    public void setMaxPeople(Integer maxPeople) {
+        this.maxPeople = maxPeople;
+    }
+
+    public Integer getAvailablePlaces() {
+        return availablePlaces;
+    }
+
+    public void setAvailablePlaces(Integer availablePlaces) {
+        this.availablePlaces = availablePlaces;
+    }
+
+    public Boolean getHot() {
+        return isHot;
+    }
+
+    public void setHot(Boolean hot) {
+        isHot = hot;
+    }
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
     }
 }

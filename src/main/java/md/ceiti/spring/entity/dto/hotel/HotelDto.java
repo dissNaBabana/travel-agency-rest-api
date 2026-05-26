@@ -3,7 +3,7 @@ package md.ceiti.spring.entity.dto.hotel;
 import md.ceiti.spring.entity.City;
 
 public class HotelDto {
-    private Long hotelId;
+    private Integer hotelId;
     private String hotelName;
     private City city;
     private Integer stars;
@@ -11,7 +11,7 @@ public class HotelDto {
     private String hotelDescription;
     private String phone;
 
-    public HotelDto(Long hotelId, String hotelName, City city, Integer stars, String address, String hotelDescription, String phone) {
+    public HotelDto(Integer hotelId, String hotelName, City city, Integer stars, String address, String hotelDescription, String phone) {
         this.hotelId = hotelId;
         this.hotelName = hotelName;
         this.city = city;
@@ -21,7 +21,7 @@ public class HotelDto {
         this.phone = phone;
     }
 
-    public Long getHotelId() {
+    public Integer getHotelId() {
         return hotelId;
     }
 

@@ -9,7 +9,7 @@ public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "city_id")
-    private Long cityId;
+    private Integer cityId;
 
     @Column(name = "city_name")
     private String cityName;
@@ -21,17 +21,17 @@ public class City {
     public City() {
     }
 
-    public City(Long cityId, String cityName, Country country) {
+    public City(Integer cityId, String cityName, Country country) {
         this.cityId = cityId;
         this.cityName = cityName;
         this.country = country;
     }
 
-    public Long getCityId() {
+    public Integer getCityId() {
         return cityId;
     }
 
-    public void setCityId(Long cityId) {
+    public void setCityId(Integer cityId) {
         this.cityId = cityId;
     }
 

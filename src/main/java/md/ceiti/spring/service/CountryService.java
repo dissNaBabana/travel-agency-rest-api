@@ -3,6 +3,7 @@ package md.ceiti.spring.service;
 import md.ceiti.spring.entity.Country;
 import md.ceiti.spring.entity.dto.country.CountryContainerDto;
 import md.ceiti.spring.entity.dto.country.CountryDto;
+import md.ceiti.spring.entity.dto.request.CountryRequest;
 import md.ceiti.spring.repository.CountryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,5 +25,16 @@ public class CountryService {
                 .map(Country::toDto)
                 .collect(Collectors.toList());
         return new CountryContainerDto(countries);
+    }
+
+    public CountryDto findById(Integer id){
+        return countryRepository.findById(id)
+                .map(Country::toDto)
+                .orElseThrow(() -> new IllegalArgumentException("Country with id" + id + "not founded"));
+    }
+
+    public CountryDto save(CountryRequest request){
+        Country country = request.toEntity();
+        return countryRepository.save(country).toDto();
     }
 }

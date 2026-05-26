@@ -9,24 +9,29 @@ public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "country_id")
-    private Long countryId;
+    private Integer countryId;
 
     @Column(name = "country_name")
     private String countryName;
 
     public Country() {
     }
+    public Country(String countryName) {
+        this.countryName = countryName;
 
-    public Country(Long countryId, String countryName) {
+    }
+    public Country(Integer countryId, String countryName) {
         this.countryId = countryId;
         this.countryName = countryName;
     }
 
-    public Long getCountryId() {
+
+
+    public Integer getCountryId() {
         return countryId;
     }
 
-    public void setCountryId(Long countryId) {
+    public void setCountryId(Integer countryId) {
         this.countryId = countryId;
     }
 
