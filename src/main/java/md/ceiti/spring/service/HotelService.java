@@ -8,6 +8,9 @@ import md.ceiti.spring.entity.dto.country.CountryContainerDto;
 import md.ceiti.spring.entity.dto.country.CountryDto;
 import md.ceiti.spring.entity.dto.hotel.HotelContainerDto;
 import md.ceiti.spring.entity.dto.hotel.HotelDto;
+import md.ceiti.spring.entity.dto.request.CityRequest;
+import md.ceiti.spring.entity.dto.request.HotelRequest;
+import md.ceiti.spring.repository.CityRepository;
 import md.ceiti.spring.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,10 +21,12 @@ import java.util.stream.Collectors;
 @Service
 public class HotelService {
     private final HotelRepository hotelRepository;
+    private final CityRepository cityRepository;
 
     @Autowired
-    public HotelService(HotelRepository hotelRepository) {
+    public HotelService(HotelRepository hotelRepository, CityRepository cityRepository) {
         this.hotelRepository = hotelRepository;
+        this.cityRepository = cityRepository;
     }
 
     public HotelContainerDto findAll(){
@@ -35,5 +40,12 @@ public class HotelService {
         return hotelRepository.findById(id)
                 .map(Hotel::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("Hotel with id" + id + "not founded"));
+    }
+
+    public HotelDto save(HotelRequest request){
+        City city = cityRepository.findById(request.getCityId())
+                .orElseThrow(() -> new IllegalArgumentException("City with id " + request.getCityId() + " not found"));;
+        Hotel hotel = request.toEntity(city);
+        return hotelRepository.save(hotel).toDto();
     }
 }

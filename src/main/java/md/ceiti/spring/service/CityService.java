@@ -19,10 +19,12 @@ import java.util.stream.Collectors;
 @Service
 public class CityService {
     private final CityRepository cityRepository;
+    private final CountryRepository countryRepository;
 
     @Autowired
-    public CityService(CityRepository cityRepository) {
+    public CityService(CityRepository cityRepository, CountryRepository countryRepository) {
         this.cityRepository = cityRepository;
+        this.countryRepository = countryRepository;
     }
 
     public CityContainerDto findAll(){
@@ -39,14 +41,18 @@ public class CityService {
     }
 
     public CityDto save(CityRequest request){
-        City city = request.toEntity();
+        Country country = countryRepository.findById(request.getCountryId())
+                .orElseThrow(() -> new IllegalArgumentException("City with id " + request.getCountryId() + " not found"));;
+        City city = request.toEntity(country);
         return cityRepository.save(city).toDto();
     }
 
     public CityDto update(Integer id, CityRequest request){
+        Country country = countryRepository.findById(request.getCountryId())
+                .orElseThrow(() -> new IllegalArgumentException("City with id " + request.getCountryId() + " not found"));;
         return cityRepository.findById(id)
                 .map(existingCity -> {
-                    City updatedCity = request.toEntity(existingCity.getCityId());
+                    City updatedCity = request.toEntity(existingCity.getCityId(), country);
                     return cityRepository.save(updatedCity).toDto();
                 })
                 .orElseThrow(() -> new IllegalArgumentException("City with id" + id + "not founded"));

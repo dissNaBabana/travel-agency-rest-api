@@ -4,6 +4,7 @@ import md.ceiti.spring.entity.dto.city.CityDto;
 import md.ceiti.spring.entity.dto.hotel.HotelContainerDto;
 import md.ceiti.spring.entity.dto.hotel.HotelDto;
 import md.ceiti.spring.entity.dto.request.CityRequest;
+import md.ceiti.spring.entity.dto.request.HotelRequest;
 import md.ceiti.spring.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,10 +30,10 @@ public class HotelController {
         return hotelService.findById(id);
     }
 
-//    @PostMapping()
-//    public CityDto save( @RequestBody CityRequest request){
-//        return cityService.save(request);
-//    }
+    @PostMapping()
+    public HotelDto save( @RequestBody HotelRequest request){
+        return hotelService.save(request);
+    }
 //
 //    @PutMapping("/{id}")
 //    public CityDto update(@PathVariable Integer id, @RequestBody CityRequest request){

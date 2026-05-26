@@ -1,9 +1,9 @@
-package md.ceiti.spring.entity.dto.hotel;
+package md.ceiti.spring.entity.dto.request;
 
 import md.ceiti.spring.entity.City;
+import md.ceiti.spring.entity.Hotel;
 
-public class HotelDto {
-    private Integer hotelId;
+public class HotelRequest {
     private String hotelName;
     private Integer cityId;
     private Integer stars;
@@ -11,8 +11,7 @@ public class HotelDto {
     private String hotelDescription;
     private String phone;
 
-    public HotelDto(Integer hotelId, String hotelName, Integer cityId, Integer stars, String address, String hotelDescription, String phone) {
-        this.hotelId = hotelId;
+    public HotelRequest(String hotelName, Integer cityId, Integer stars, String address, String hotelDescription, String phone) {
         this.hotelName = hotelName;
         this.cityId = cityId;
         this.stars = stars;
@@ -21,9 +20,6 @@ public class HotelDto {
         this.phone = phone;
     }
 
-    public Integer getHotelId() {
-        return hotelId;
-    }
 
     public String getHotelName() {
         return hotelName;
@@ -47,5 +43,28 @@ public class HotelDto {
 
     public String getPhone() {
         return phone;
+    }
+
+    public Hotel toEntity(City city){
+        return new Hotel(
+                hotelName,
+                city,
+                stars,
+                address,
+                hotelDescription,
+                phone);
+
+    }
+
+    public Hotel toEntity(Integer id, City city){
+        return new Hotel(
+                id,
+                hotelName,
+                city,
+                stars,
+                address,
+                hotelDescription,
+                phone);
+
     }
 }

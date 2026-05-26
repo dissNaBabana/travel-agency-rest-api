@@ -44,6 +44,15 @@ public class Hotel {
         this.phone = phone;
     }
 
+    public Hotel(String hotelName, City city, Integer stars, String address, String hotelDescription, String phone) {
+        this.hotelName = hotelName;
+        this.city = city;
+        this.stars = stars;
+        this.address = address;
+        this.hotelDescription = hotelDescription;
+        this.phone = phone;
+    }
+
     public Integer getHotelId() {
         return hotelId;
     }
@@ -104,7 +113,7 @@ public class Hotel {
         return new HotelDto(
              hotelId,
              hotelName,
-             city,
+             city.getCityId(),
              stars,
              address,
              hotelDescription,

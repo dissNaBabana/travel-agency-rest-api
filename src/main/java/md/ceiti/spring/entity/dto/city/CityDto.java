@@ -5,12 +5,12 @@ import md.ceiti.spring.entity.Country;
 public class CityDto {
         private Integer cityId;
         private String cityName;
-        private Country country;
+        private Integer countryId;
 
-    public CityDto(Integer cityId, String cityName, Country country) {
+    public CityDto(Integer cityId, String cityName, Integer countryId) {
         this.cityId = cityId;
         this.cityName = cityName;
-        this.country = country;
+        this.countryId = countryId;
     }
 
     public Integer getCityId() {
@@ -21,7 +21,7 @@ public class CityDto {
         return cityName;
     }
 
-    public Country getCountry() {
-        return country;
+    public Integer getCountry() {
+        return countryId;
     }
 }

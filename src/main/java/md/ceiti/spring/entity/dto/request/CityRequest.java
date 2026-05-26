@@ -5,29 +5,29 @@ import md.ceiti.spring.entity.Country;
 
 public class CityRequest {
     private String cityName;
-    private Country country;
+    private Integer countryId;
 
-    public CityRequest(String cityName, Country country) {
+    public CityRequest(String cityName, Integer country) {
         this.cityName = cityName;
-        this.country = country;
+        this.countryId = country;
     }
 
     public String getCityName() {
         return cityName;
     }
 
-    public Country getCountry() {
-        return country;
+    public Integer getCountryId() {
+        return countryId;
     }
 
-    public City toEntity(){
+    public City toEntity(Country country){
         return new City(
                 cityName,
                 country
         );
     }
 
-    public City toEntity(Integer id){
+    public City toEntity(Integer id, Country country){
         return new City(
                 id,
                 cityName,

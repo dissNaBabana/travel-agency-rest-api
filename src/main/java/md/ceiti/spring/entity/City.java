@@ -60,7 +60,7 @@ public class City {
         return new CityDto(
                 cityId,
                 cityName,
-                country
+                country.getCountryId()
         );
     }
 }
