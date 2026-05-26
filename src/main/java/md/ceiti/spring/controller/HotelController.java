@@ -40,4 +40,9 @@ public class HotelController {
         return hotelService.update(id, request);
     }
 
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable int id){
+        hotelService.delete(id);
+    }
+
 }

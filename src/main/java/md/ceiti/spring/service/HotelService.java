@@ -59,4 +59,9 @@ public class HotelService {
                 })
                 .orElseThrow(() -> new IllegalArgumentException("City with id" + id + "not founded"));
     }
+
+    public void delete(int id) {
+        hotelRepository.deleteById(id);
+    }
+
 }
