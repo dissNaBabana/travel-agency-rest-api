@@ -1,6 +1,8 @@
 package md.ceiti.spring.entity;
 
 import jakarta.persistence.*;
+import md.ceiti.spring.entity.dto.city.CityDto;
+import md.ceiti.spring.entity.dto.hotel.HotelDto;
 
 @Entity
 @Table(name = "hotels")
@@ -96,5 +98,17 @@ public class Hotel {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public HotelDto toDto(){
+        return new HotelDto(
+             hotelId,
+             hotelName,
+             city,
+             stars,
+             address,
+             hotelDescription,
+             phone
+        );
     }
 }
