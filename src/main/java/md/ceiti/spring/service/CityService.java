@@ -29,4 +29,10 @@ public class CityService {
                 .collect(Collectors.toList());
         return new CityContainerDto(cities);
     }
+
+    public CityDto findById(Integer id){
+        return cityRepository.findById(id)
+                .map(City::toDto)
+                .orElseThrow(() -> new IllegalArgumentException("City with id" + id + "not founded"));
+    }
 }
