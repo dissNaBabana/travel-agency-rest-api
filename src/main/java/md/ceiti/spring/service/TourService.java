@@ -10,6 +10,8 @@ import md.ceiti.spring.repository.TourRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,6 +39,18 @@ public class TourService {
 
     public TourContainerDto findAllHot(){
         List<TourDto> tours = tourRepository.findByIsHot(true).stream()
+                .map(Tour::toDto)
+                .collect(Collectors.toList());
+        return new TourContainerDto(tours);
+    }
+
+    public TourContainerDto findAllNew(){
+        LocalDate now = LocalDate.now();
+
+        LocalDate start = now.minusDays(2);
+        LocalDate end = now.plusDays(1);
+
+        List<TourDto> tours = tourRepository.findByCreatedAtBetween(start, end).stream()
                 .map(Tour::toDto)
                 .collect(Collectors.toList());
         return new TourContainerDto(tours);

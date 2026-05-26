@@ -40,6 +40,8 @@ public class TourController {
         return tourService.findAllHot();
     }
 
-//    @GetMapping("/new")
-//    public TourContainerDto getNewTours() { ... }
+    @GetMapping("/new")
+    public TourContainerDto getNewTours() {
+        return tourService.findAllNew();
+    }
 }

@@ -4,8 +4,11 @@ import md.ceiti.spring.entity.Tour;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
 public interface TourRepository extends JpaRepository<Tour, Integer> {
-    List<Tour> findByIsHot(boolean isHot);}
+    List<Tour> findByIsHot(boolean isHot);
+    List<Tour> findByCreatedAtBetween(LocalDate start, LocalDate end);
+}

@@ -5,6 +5,7 @@ import md.ceiti.spring.entity.dto.tour.TourDto;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tours")
