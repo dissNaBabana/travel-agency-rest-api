@@ -51,36 +51,39 @@ CREATE TABLE tour_images (
                              image_url TEXT NOT NULL
 );
 
-CREATE TABLE clients (
-                         client_id SERIAL PRIMARY KEY,
-                         first_name VARCHAR(100) NOT NULL,
-                         last_name VARCHAR(100) NOT NULL,
-                         email VARCHAR(150) UNIQUE NOT NULL,
-                         phone VARCHAR(20) UNIQUE NOT NULL,
-                         birth_date DATE,
-                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
 CREATE TABLE bookings (
                           booking_id SERIAL PRIMARY KEY,
-                          client_id INT NOT NULL REFERENCES clients(client_id)
+                          user_id INT NOT NULL REFERENCES users(user_id)
                               ON DELETE CASCADE,
                           tour_id INT NOT NULL REFERENCES tours(tour_id)
                               ON DELETE CASCADE,
                           booking_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                           people_count INT NOT NULL CHECK (people_count > 0),
                           total_price DECIMAL(10,2) NOT NULL CHECK (total_price > 0),
-                          status VARCHAR(30) NOT NULL CHECK (
-                              status IN ('PENDING', 'PAID', 'CANCELLED')
-                              )
+                          status VARCHAR(30) NOT NULL DEFAULT 'PENDING'
+                              CHECK (status IN ('PENDING', 'PAID', 'CANCELLED'))
 );
 
-CREATE TABLE admins (
-                        admin_id SERIAL PRIMARY KEY,
-                        full_name VARCHAR(150) NOT NULL,
-                        email VARCHAR(150) UNIQUE NOT NULL,
-                        password TEXT NOT NULL,
-                        role VARCHAR(30) NOT NULL CHECK (
-                            role IN ('SUPER_ADMIN', 'ADMIN')
-                            )
+CREATE TABLE users (
+                       user_id SERIAL PRIMARY KEY,
+                       first_name VARCHAR(100) NOT NULL,
+                       last_name VARCHAR(100) NOT NULL,
+                       email VARCHAR(150) UNIQUE NOT NULL,
+                       phone VARCHAR(20) UNIQUE,
+                       password TEXT NOT NULL,
+                       role VARCHAR(30) NOT NULL DEFAULT 'CLIENT'
+                           CHECK (role IN ('CLIENT', 'ADMIN', 'SUPER_ADMIN')),
+                       birth_date DATE,
+                       is_active BOOLEAN DEFAULT true,
+                       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE favorites (
+                           favorite_id SERIAL PRIMARY KEY,
+                           user_id INT NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
+                           tour_id INT NOT NULL REFERENCES tours(tour_id) ON DELETE CASCADE,
+                           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+                           UNIQUE(user_id, tour_id)
 );
