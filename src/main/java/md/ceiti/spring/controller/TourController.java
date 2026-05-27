@@ -29,11 +29,15 @@ public class TourController {
         return tourService.findById(id);
     }
 
-//    @GetMapping("/filter")
-//    public TourContainerDto filter(
-//            @RequestParam(required = false) String country,
-//            @RequestParam(required = false) BigDecimal minPrice,
-//            @RequestParam(required = false) BigDecimal maxPrice) { ... }
+    @GetMapping("/filter")
+    public TourContainerDto filter(
+            @RequestParam(required = false) Integer countryId,
+            @RequestParam(required = false) BigDecimal minPrice,
+            @RequestParam(required = false) BigDecimal maxPrice) {
+
+        return tourService.filter(countryId, minPrice, maxPrice);
+
+    }
 
     @GetMapping("/is_hot")
     public TourContainerDto getHotTours() {
