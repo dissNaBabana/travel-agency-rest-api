@@ -70,6 +70,33 @@ public class Tour {
         this.createdAt = createdAt;
     }
 
+    public Tour(String title, String description, Country country, Hotel hotel, BigDecimal price, LocalDate startDate, LocalDate endDate, Integer maxPeople, Integer availablePlaces, Boolean isHot) {
+        this.title = title;
+        this.description = description;
+        this.country = country;
+        this.hotel = hotel;
+        this.price = price;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.maxPeople = maxPeople;
+        this.availablePlaces = availablePlaces;
+        this.isHot = isHot;
+    }
+
+    public Tour(Integer tourId, String title, String description, Country country, Hotel hotel, BigDecimal price, LocalDate startDate, LocalDate endDate, Integer maxPeople, Integer availablePlaces, Boolean isHot) {
+        this.tourId = tourId;
+        this.title = title;
+        this.description = description;
+        this.country = country;
+        this.hotel = hotel;
+        this.price = price;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.maxPeople = maxPeople;
+        this.availablePlaces = availablePlaces;
+        this.isHot = isHot;
+    }
+
     public Integer getTourId() {
         return tourId;
     }

@@ -1,5 +1,9 @@
 package md.ceiti.spring.controller;
 
+import md.ceiti.spring.entity.Tour;
+import md.ceiti.spring.entity.dto.hotel.HotelDto;
+import md.ceiti.spring.entity.dto.request.HotelRequest;
+import md.ceiti.spring.entity.dto.request.TourRequest;
 import md.ceiti.spring.entity.dto.tour.TourContainerDto;
 import md.ceiti.spring.entity.dto.tour.TourDto;
 import md.ceiti.spring.service.TourService;
@@ -48,4 +52,21 @@ public class TourController {
     public TourContainerDto getNewTours() {
         return tourService.findAllNew();
     }
+
+    @PostMapping()
+    public TourDto save(@RequestBody TourRequest request){
+
+        return tourService.save(request);
+    }
+
+    @PutMapping("/{id}")
+    public TourDto update(@PathVariable Integer id, @RequestBody TourRequest request){
+        return tourService.update(id, request);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable int id){
+        tourService.delete(id);
+    }
+
 }
