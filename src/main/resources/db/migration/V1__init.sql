@@ -72,10 +72,7 @@ CREATE TABLE users (
                        phone VARCHAR(20) UNIQUE,
                        password TEXT NOT NULL,
                        role VARCHAR(30) NOT NULL DEFAULT 'CLIENT'
-                           CHECK (role IN ('CLIENT', 'ADMIN', 'SUPER_ADMIN')),
-                       birth_date DATE,
-                       is_active BOOLEAN DEFAULT true,
-                       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                           CHECK (role IN ('CLIENT', 'ADMIN', 'SUPER_ADMIN'))
 );
 
 
@@ -83,7 +80,6 @@ CREATE TABLE favorites (
                            favorite_id SERIAL PRIMARY KEY,
                            user_id INT NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
                            tour_id INT NOT NULL REFERENCES tours(tour_id) ON DELETE CASCADE,
-                           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
                            UNIQUE(user_id, tour_id)
 );
