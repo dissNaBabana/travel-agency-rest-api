@@ -6,18 +6,24 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
+import javax.naming.AuthenticationException;
 import java.time.LocalDateTime;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(Throwable.class)
-    public ResponseEntity<ExceptionResponse> handleException(Throwable throwable){
-        HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
+//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//    @ExceptionHandler(AuthenticationException.class)
+//    public ResponseEntity<String> handleAuthException(Exception ex){
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error : "+ ex.getMessage());
+//    }
 
-        ExceptionResponse responseBody = new ExceptionResponse(status.value(), throwable.getMessage(), LocalDateTime.now());
-        return new ResponseEntity<>(responseBody, buildHeaders(), status);
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<String> handleAuthException(AuthenticationException ex){
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Authentication failed : "+ ex.getMessage());
     }
 
     private HttpHeaders buildHeaders(){

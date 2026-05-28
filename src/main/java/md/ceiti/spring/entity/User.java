@@ -2,6 +2,7 @@ package md.ceiti.spring.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import md.ceiti.spring.entity.dto.user.UserDto;
 
 @Entity
 @Table(name = "users")
@@ -27,6 +28,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private UserRole role;
 
@@ -41,6 +43,15 @@ public class User {
         this.phone = phone;
         this.password = password;
         this.role = role;
+    }
+
+    public User(String firstName, String lastName, String email, String phone, String password, UserRole role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+        this.role = UserRole.CLIENT;
     }
 
     public User(String firstName, String lastName, String email, String phone, String password) {
@@ -105,5 +116,17 @@ public class User {
 
     public void setRole(UserRole role) {
         this.role = role;
+    }
+
+    public UserDto toDto(){
+        return new UserDto(
+             userId,
+            firstName,
+            lastName,
+            email,
+            phone,
+            password,
+            role
+        );
     }
 }
