@@ -27,8 +27,6 @@ public class AuthController {
         this.authService = authService;
     }
 
-//    POST   /auth/register
-//    POST   /auth/login
 //    POST   /auth/logout
 
     @PostMapping("/register")

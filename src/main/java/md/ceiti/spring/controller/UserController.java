@@ -7,9 +7,11 @@ import md.ceiti.spring.entity.dto.request.HotelRequest;
 import md.ceiti.spring.entity.dto.request.UserRequest;
 import md.ceiti.spring.entity.dto.user.UserContainerDto;
 import md.ceiti.spring.entity.dto.user.UserDto;
+import md.ceiti.spring.security.CustomUserDetails;
 import md.ceiti.spring.service.HotelService;
 import md.ceiti.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,30 +24,20 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping()
-    public UserContainerDto findAll(){
-        return userService.findAll();
+    @GetMapping("/me")
+    public UserDto findById(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        return userService.findById(userDetails.getUser().getUserId());
     }
 
-    @GetMapping("/{id}")
-    public UserDto findById(@PathVariable Integer id){
-
-        return userService.findById(id);
+    @PutMapping("/me")
+    public UserDto update(@AuthenticationPrincipal CustomUserDetails userDetails,
+                            @RequestBody UserRequest request) {
+        return userService.update(userDetails.getUser().getUserId(), request);
     }
 
-    @PostMapping()
-    public UserDto save(@RequestBody UserRequest request){
-        return userService.save(request);
-    }
-
-    @PutMapping("/{id}")
-    public UserDto update(@PathVariable Integer id, @RequestBody UserRequest request){
-        return userService.update(id, request);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable int id){
-        userService.delete(id);
+    @DeleteMapping("/me")
+    public void delete(@AuthenticationPrincipal CustomUserDetails userDetails) {
+        userService.delete(userDetails.getUser().getUserId());
     }
 
 }
