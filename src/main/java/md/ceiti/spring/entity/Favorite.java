@@ -27,9 +27,9 @@ public class Favorite {
         this.tour = tour;
     }
 
-    public Favorite(Tour tour, User user) {
-        this.tour = tour;
+    public Favorite(User user, Tour tour) {
         this.user = user;
+        this.tour = tour;
     }
 
     public Integer getFavoriteId() {

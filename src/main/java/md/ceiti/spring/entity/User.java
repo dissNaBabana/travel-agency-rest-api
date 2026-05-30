@@ -3,6 +3,7 @@ package md.ceiti.spring.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import md.ceiti.spring.entity.dto.user.UserDto;
+import md.ceiti.spring.entity.dto.user.UserWithoutPasswordDto;
 
 @Entity
 @Table(name = "users")
@@ -127,6 +128,17 @@ public class User {
             phone,
             password,
             role
+        );
+    }
+
+    public UserWithoutPasswordDto toDtoWithoutPassword(){
+        return new UserWithoutPasswordDto(
+                userId,
+                firstName,
+                lastName,
+                email,
+                phone,
+                role
         );
     }
 }

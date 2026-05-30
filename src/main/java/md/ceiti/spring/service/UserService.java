@@ -1,9 +1,17 @@
 package md.ceiti.spring.service;
+import md.ceiti.spring.entity.Favorite;
+import md.ceiti.spring.entity.Tour;
 import md.ceiti.spring.entity.User;
 import md.ceiti.spring.entity.UserRole;
 import md.ceiti.spring.entity.dto.request.UserRequest;
+import md.ceiti.spring.entity.dto.tour.TourContainerDto;
+import md.ceiti.spring.entity.dto.tour.TourDto;
 import md.ceiti.spring.entity.dto.user.UserContainerDto;
 import md.ceiti.spring.entity.dto.user.UserDto;
+import md.ceiti.spring.entity.dto.user.UserWithoutPasswordContainerDto;
+import md.ceiti.spring.entity.dto.user.UserWithoutPasswordDto;
+import md.ceiti.spring.repository.FavoriteRepository;
+import md.ceiti.spring.repository.TourRepository;
 import md.ceiti.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,18 +24,22 @@ import java.util.stream.Collectors;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final FavoriteRepository favoriteRepository;
+    private final TourRepository tourRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, FavoriteRepository favoriteRepository, TourRepository tourRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.favoriteRepository = favoriteRepository;
+        this.tourRepository = tourRepository;
     }
 
-    public UserContainerDto findAll(){
-        List<UserDto> users = userRepository.findByRole(UserRole.CLIENT).stream()
-                .map(User::toDto)
+    public UserWithoutPasswordContainerDto findAll(){
+        List<UserWithoutPasswordDto> users = userRepository.findByRole(UserRole.CLIENT).stream()
+                .map(User::toDtoWithoutPassword)
                 .collect(Collectors.toList());
-        return new UserContainerDto(users);
+        return new UserWithoutPasswordContainerDto(users);
     }
 
     public UserDto findById(Integer id){
@@ -55,5 +67,22 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    public TourContainerDto findAllMyFavorite(Integer userId){
+        List<TourDto> tours = favoriteRepository.findFavoriteToursByUserId(userId).stream()
+                .map(Tour::toDto)
+                .collect(Collectors.toList());
+        return new TourContainerDto(tours);
+    }
 
+    public void markAsFavorite(User user, Integer tourId){
+       Tour tour =  tourRepository.findById(tourId)
+                .orElseThrow(() -> new IllegalArgumentException("Tour with id" + tourId + "not founded"));
+
+        Favorite favorite = new Favorite(user, tour);
+        favoriteRepository.save(favorite);
+    }
+
+    public void deleteFavorite(User user, Integer tourId){
+        favoriteRepository.deleteByUserAndTourId(user, tourId);
+    }
 }
