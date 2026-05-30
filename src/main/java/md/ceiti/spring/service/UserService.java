@@ -6,10 +6,7 @@ import md.ceiti.spring.entity.UserRole;
 import md.ceiti.spring.entity.dto.request.UserRequest;
 import md.ceiti.spring.entity.dto.tour.TourContainerDto;
 import md.ceiti.spring.entity.dto.tour.TourDto;
-import md.ceiti.spring.entity.dto.user.UserContainerDto;
-import md.ceiti.spring.entity.dto.user.UserDto;
-import md.ceiti.spring.entity.dto.user.UserWithoutPasswordContainerDto;
-import md.ceiti.spring.entity.dto.user.UserWithoutPasswordDto;
+import md.ceiti.spring.entity.dto.user.*;
 import md.ceiti.spring.repository.FavoriteRepository;
 import md.ceiti.spring.repository.TourRepository;
 import md.ceiti.spring.repository.UserRepository;
@@ -34,9 +31,21 @@ public class UserService {
         this.favoriteRepository = favoriteRepository;
         this.tourRepository = tourRepository;
     }
-
     public UserWithoutPasswordContainerDto findAll(){
+        List<UserWithoutPasswordDto> users = userRepository.findAll().stream()
+                .map(User::toDtoWithoutPassword)
+                .collect(Collectors.toList());
+        return new UserWithoutPasswordContainerDto(users);
+    }
+
+    public UserWithoutPasswordContainerDto findAllClients(){
         List<UserWithoutPasswordDto> users = userRepository.findByRole(UserRole.CLIENT).stream()
+                .map(User::toDtoWithoutPassword)
+                .collect(Collectors.toList());
+        return new UserWithoutPasswordContainerDto(users);
+    }
+    public UserWithoutPasswordContainerDto findAllAdmins(){
+        List<UserWithoutPasswordDto> users = userRepository.findByRole(UserRole.ADMIN).stream()
                 .map(User::toDtoWithoutPassword)
                 .collect(Collectors.toList());
         return new UserWithoutPasswordContainerDto(users);
@@ -84,5 +93,14 @@ public class UserService {
 
     public void deleteFavorite(User user, Integer tourId){
         favoriteRepository.deleteByUserAndTourId(user, tourId);
+    }
+
+    public UserWithoutPasswordDto updateRole(Integer id, UpdateRoleDto updateRoleDto) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User with id " + id + " not found"));
+
+        user.setRole(updateRoleDto.getUserRole());
+
+        return userRepository.save(user).toDtoWithoutPassword();
     }
 }
