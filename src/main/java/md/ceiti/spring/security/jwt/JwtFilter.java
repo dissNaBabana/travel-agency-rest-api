@@ -19,10 +19,13 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final CustomUserService customUserService;
+    private final TokenBlacklistService tokenBlacklistService;
 
-    public JwtFilter(JwtService jwtService, CustomUserService customUserService) {
+
+    public JwtFilter(JwtService jwtService, CustomUserService customUserService, TokenBlacklistService tokenBlacklistService) {
         this.jwtService = jwtService;
         this.customUserService = customUserService;
+        this.tokenBlacklistService = tokenBlacklistService;
     }
 
     @Override
@@ -34,7 +37,6 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String path = request.getServletPath();
 
-        // 🔥 PUBLIC ENDPOINTS BYPASS
         if (path.startsWith("/api/v1/auth/")) {
             filterChain.doFilter(request, response);
             return;
@@ -42,7 +44,8 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String token = getToken(request);
 
-        if (token != null && jwtService.validateJwtToken(token)) {
+        if (token != null && jwtService.validateJwtToken(token)
+                && !tokenBlacklistService.isBlacklisted(token)) {
             String email = jwtService.getEmailFromToken(token);
 
             CustomUserDetails userDetails =
