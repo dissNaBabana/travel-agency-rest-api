@@ -1,6 +1,7 @@
 package md.ceiti.spring.entity;
 
 import jakarta.persistence.*;
+import md.ceiti.spring.entity.dto.booking.BookingDto;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -108,5 +109,17 @@ public class Booking {
 
     public void setStatus(BookingStatus status) {
         this.status = status;
+    }
+
+    public BookingDto toDto(){
+        return new BookingDto(
+                bookingId,
+                user.getUserId(),
+                tour.getTourId(),
+                bookingDate,
+                peopleCount,
+                totalPrice,
+                status
+        );
     }
 }
