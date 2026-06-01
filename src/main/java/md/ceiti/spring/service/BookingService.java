@@ -1,18 +1,19 @@
 package md.ceiti.spring.service;
 
-import md.ceiti.spring.entity.Booking;
-import md.ceiti.spring.entity.Hotel;
-import md.ceiti.spring.entity.Tour;
+import md.ceiti.spring.entity.*;
 import md.ceiti.spring.entity.dto.booking.BookingContainerDto;
 import md.ceiti.spring.entity.dto.booking.BookingDto;
 import md.ceiti.spring.entity.dto.hotel.HotelContainerDto;
 import md.ceiti.spring.entity.dto.hotel.HotelDto;
+import md.ceiti.spring.entity.dto.request.BookingRequest;
+import md.ceiti.spring.entity.dto.request.HotelRequest;
 import md.ceiti.spring.repository.BookingRepository;
 import md.ceiti.spring.repository.TourRepository;
 import md.ceiti.spring.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,14 +45,28 @@ public class BookingService {
 
     public BookingContainerDto findByTourId(Integer id) {
         Tour tour = tourRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Tour with id " + id + " not found"
-                ));
-
+                .orElseThrow(() -> new IllegalArgumentException("Tour with id " + id + " not found"));
         List<BookingDto> bookings = bookingRepository.findByTour(tour)
                 .stream()
                 .map(Booking::toDto)
                 .toList();
-
         return new BookingContainerDto(bookings);
+    }
+
+    public BookingDto save(User user, BookingRequest request) {
+        Tour tour = tourRepository.findById(request.getTourId())
+                .orElseThrow(() -> new IllegalArgumentException("Tour with id " + request.getTourId() + " not found"));
+        if (tour.getAvailablePlaces() < request.getPeopleCount()) {
+            throw new IllegalArgumentException("Not enough available places");
+        }
+        tour.setAvailablePlaces(
+                tour.getAvailablePlaces() - request.getPeopleCount());
+
+        BigDecimal totalPrice = tour.getPrice()
+                .multiply(BigDecimal.valueOf(request.getPeopleCount()));
+        Booking booking = request.toEntity(user, tour, totalPrice);
+
+        Booking saved = bookingRepository.save(booking);
+        return saved.toDto();
     }
 }

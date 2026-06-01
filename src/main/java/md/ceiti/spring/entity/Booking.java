@@ -48,6 +48,15 @@ public class Booking {
         this.status = status;
     }
 
+    public Booking(User user, Tour tour, LocalDateTime bookingDate, Integer peopleCount, BigDecimal totalPrice, BookingStatus status) {
+        this.user = user;
+        this.tour = tour;
+        this.bookingDate = bookingDate;
+        this.peopleCount = peopleCount;
+        this.totalPrice = totalPrice;
+        this.status = status;
+    }
+
     public Booking(User user, Tour tour, Integer peopleCount, BigDecimal totalPrice) {
         this.user = user;
         this.tour = tour;
