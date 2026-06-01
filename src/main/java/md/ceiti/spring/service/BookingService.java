@@ -34,4 +34,10 @@ public class BookingService {
                 .collect(Collectors.toList());
         return new BookingContainerDto(bookings);
     }
+
+    public BookingDto findById(Integer id){
+        return bookingRepository.findById(id)
+                .map(Booking::toDto)
+                .orElseThrow(() -> new IllegalArgumentException("Booking with id" + id + "not founded"));
+    }
 }
