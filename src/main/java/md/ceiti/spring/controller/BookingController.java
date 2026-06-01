@@ -28,10 +28,13 @@ public class BookingController {
         return bookingService.findAll();
     }
 
-
     @GetMapping("/{id}")
     public BookingDto findById(@PathVariable Integer id){
-
         return bookingService.findById(id);
+    }
+
+    @GetMapping("/tours/{id}")
+    public BookingContainerDto findByTourId(@PathVariable Integer id){
+        return bookingService.findByTourId(id);
     }
 }

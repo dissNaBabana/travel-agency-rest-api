@@ -2,6 +2,7 @@ package md.ceiti.spring.service;
 
 import md.ceiti.spring.entity.Booking;
 import md.ceiti.spring.entity.Hotel;
+import md.ceiti.spring.entity.Tour;
 import md.ceiti.spring.entity.dto.booking.BookingContainerDto;
 import md.ceiti.spring.entity.dto.booking.BookingDto;
 import md.ceiti.spring.entity.dto.hotel.HotelContainerDto;
@@ -39,5 +40,18 @@ public class BookingService {
         return bookingRepository.findById(id)
                 .map(Booking::toDto)
                 .orElseThrow(() -> new IllegalArgumentException("Booking with id" + id + "not founded"));
+    }
+
+    public BookingContainerDto findByTourId(Integer id) {
+        Tour tour = tourRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Tour with id " + id + " not found"
+                ));
+
+        List<BookingDto> bookings = bookingRepository.findByTour(tour)
+                .stream()
+                .map(Booking::toDto)
+                .toList();
+
+        return new BookingContainerDto(bookings);
     }
 }
