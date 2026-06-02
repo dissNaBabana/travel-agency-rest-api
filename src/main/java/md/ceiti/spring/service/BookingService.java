@@ -67,12 +67,22 @@ public class BookingService {
         return saved.toDto();
     }
 
-    public BookingDto putCancelStatus(Integer id){
+    public BookingDto putCancelStatus(Integer id) {
         Booking booking = bookingRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Booking with id " + id + " not found"));
 
-        booking.setStatus(BookingStatus.CANCELLED);
+        if (booking.getStatus() != BookingStatus.CANCELLED && booking.getStatus() != BookingStatus.PAID) {
+            booking.setStatus(BookingStatus.CANCELLED);
 
-        return bookingRepository.save(booking).toDto();
+            Tour tour = tourRepository.findById(booking.getTour().getTourId())
+                    .orElseThrow(() -> new IllegalArgumentException("Tour not found"));
+
+            tour.setAvailablePlaces(tour.getAvailablePlaces() + booking.getPeopleCount());
+            tourRepository.save(tour);
+
+            return bookingRepository.save(booking).toDto();
+        }
+
+        return booking.toDto();
     }
 }
