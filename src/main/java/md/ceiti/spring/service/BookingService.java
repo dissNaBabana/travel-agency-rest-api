@@ -85,4 +85,15 @@ public class BookingService {
 
         return booking.toDto();
     }
+
+    public BookingDto putPaidStatus(Integer id) {
+        Booking booking = bookingRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Booking with id " + id + " not found"));
+
+        if (booking.getStatus() != BookingStatus.CANCELLED ) {
+            booking.setStatus(BookingStatus.PAID);
+            return bookingRepository.save(booking).toDto();
+        }
+        return booking.toDto();
+    }
 }

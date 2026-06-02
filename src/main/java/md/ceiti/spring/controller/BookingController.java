@@ -44,4 +44,9 @@ public class BookingController {
     public BookingDto putCancelStatus(@PathVariable Integer id) {
         return bookingService.putCancelStatus(id);
     }
+
+    @PatchMapping("/{id}/paid")
+    public BookingDto putPaidStatus(@PathVariable Integer id) {
+        return bookingService.putPaidStatus(id);
+    }
 }
