@@ -2,10 +2,7 @@ package md.ceiti.spring.controller;
 
 import md.ceiti.spring.entity.dto.booking.BookingContainerDto;
 import md.ceiti.spring.entity.dto.booking.BookingDto;
-import md.ceiti.spring.entity.dto.city.CityDto;
 import md.ceiti.spring.entity.dto.request.BookingRequest;
-import md.ceiti.spring.entity.dto.request.UserRequest;
-import md.ceiti.spring.entity.dto.user.UserDto;
 import md.ceiti.spring.security.CustomUserDetails;
 import md.ceiti.spring.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +38,10 @@ public class BookingController {
     public BookingDto update(@AuthenticationPrincipal CustomUserDetails userDetails,
                           @RequestBody BookingRequest request) {
         return bookingService.save(userDetails.getUser(), request);
+    }
+
+    @PatchMapping("/{id}/cancel")
+    public BookingDto putCancelStatus(@PathVariable Integer id) {
+        return bookingService.putCancelStatus(id);
     }
 }

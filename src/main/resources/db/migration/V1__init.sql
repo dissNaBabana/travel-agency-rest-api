@@ -38,7 +38,7 @@ CREATE TABLE tours (
                        start_date DATE NOT NULL,
                        end_date DATE NOT NULL,
                        max_people INT NOT NULL CHECK (max_people > 0),
-                       available_places INT NOT NULL CHECK (available_places >= 0),
+                       available_places INT NOT NULL CHECK (available_places <= max_people),
                        is_hot BOOLEAN DEFAULT FALSE,
                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                        CHECK (end_date > start_date)

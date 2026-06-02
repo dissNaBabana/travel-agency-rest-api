@@ -50,14 +50,25 @@ public class AuthService {
     }
 
     public JwtAuthenticatorDto refreshToken(RefreshTokenDto dto) {
-
         String token = dto.getRefreshToken();
 
-        if (token == null || !jwtService.validateJwtToken(token)) {
+        if (token == null) {
+            throw new BadCredentialsException("Refresh token is missing");
+        }
+
+        String email;
+        try {
+            email = jwtService.getEmailFromExpiredToken(token);
+        } catch (Exception e) {
             throw new BadCredentialsException("Invalid refresh token");
         }
 
-        String email = jwtService.getEmailFromToken(token);
+        userRepository.findByEmail(email)
+                .orElseThrow(() -> new BadCredentialsException("User not found"));
+
+        if (!jwtService.validateRefreshToken(token)) {
+            throw new BadCredentialsException("Refresh token expired, please sign in again");
+        }
 
         return jwtService.refreshBaseToken(email, token);
     }

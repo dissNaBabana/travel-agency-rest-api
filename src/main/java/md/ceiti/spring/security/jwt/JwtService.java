@@ -98,4 +98,34 @@ public class JwtService {
         byte[] keyBytes = Decoders.BASE64.decode(jwtSecret);
         return Keys.hmacShaKeyFor(keyBytes);
     }
+
+    public boolean validateRefreshToken(String token) {
+        try {
+            Jwts.parser()
+                    .verifyWith(getSingInKey())
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
+            return true;
+        } catch (ExpiredJwtException ex) {
+            LOGGER.error("Refresh token expired: " + ex.getMessage());
+        } catch (Exception ex) {
+            LOGGER.error("Invalid refresh token: " + ex.getMessage());
+        }
+        return false;
+    }
+
+    public String getEmailFromExpiredToken(String token) {
+        try {
+            return Jwts.parser()
+                    .verifyWith(getSingInKey())
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload()
+                    .getSubject();
+        } catch (ExpiredJwtException ex) {
+            // Claims доступны даже при истечении
+            return ex.getClaims().getSubject();
+        }
+    }
 }

@@ -3,10 +3,7 @@ package md.ceiti.spring.service;
 import md.ceiti.spring.entity.*;
 import md.ceiti.spring.entity.dto.booking.BookingContainerDto;
 import md.ceiti.spring.entity.dto.booking.BookingDto;
-import md.ceiti.spring.entity.dto.hotel.HotelContainerDto;
-import md.ceiti.spring.entity.dto.hotel.HotelDto;
 import md.ceiti.spring.entity.dto.request.BookingRequest;
-import md.ceiti.spring.entity.dto.request.HotelRequest;
 import md.ceiti.spring.repository.BookingRepository;
 import md.ceiti.spring.repository.TourRepository;
 import md.ceiti.spring.repository.UserRepository;
@@ -68,5 +65,14 @@ public class BookingService {
 
         Booking saved = bookingRepository.save(booking);
         return saved.toDto();
+    }
+
+    public BookingDto putCancelStatus(Integer id){
+        Booking booking = bookingRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Booking with id " + id + " not found"));
+
+        booking.setStatus(BookingStatus.CANCELLED);
+
+        return bookingRepository.save(booking).toDto();
     }
 }
