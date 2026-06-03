@@ -5,6 +5,7 @@ import md.ceiti.spring.entity.dto.city.CityDto;
 import md.ceiti.spring.entity.dto.request.CityRequest;
 import md.ceiti.spring.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -28,11 +29,13 @@ public class CityController {
         return cityService.findById(id);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
     @PostMapping()
     public CityDto save( @RequestBody CityRequest request){
         return cityService.save(request);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
     @PutMapping("/{id}")
     public CityDto update(@PathVariable Integer id, @RequestBody CityRequest request){
         return cityService.update(id, request);

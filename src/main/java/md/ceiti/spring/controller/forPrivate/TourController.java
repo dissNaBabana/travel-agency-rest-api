@@ -4,8 +4,8 @@ import md.ceiti.spring.entity.dto.request.TourRequest;
 import md.ceiti.spring.entity.dto.tour.TourContainerDto;
 import md.ceiti.spring.entity.dto.tour.TourDto;
 import md.ceiti.spring.service.TourService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.math.BigDecimal;
 
 @RestController
@@ -49,17 +49,19 @@ public class TourController {
         return tourService.findAllNew();
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
     @PostMapping()
     public TourDto save(@RequestBody TourRequest request){
-
         return tourService.save(request);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
     @PutMapping("/{id}")
     public TourDto update(@PathVariable Integer id, @RequestBody TourRequest request){
         return tourService.update(id, request);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable int id){
         tourService.delete(id);

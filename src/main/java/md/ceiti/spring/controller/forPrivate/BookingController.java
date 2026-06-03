@@ -6,6 +6,7 @@ import md.ceiti.spring.entity.dto.request.BookingRequest;
 import md.ceiti.spring.security.CustomUserDetails;
 import md.ceiti.spring.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +31,7 @@ public class BookingController {
     }
 
     @PostMapping
-    public BookingDto update(@AuthenticationPrincipal CustomUserDetails userDetails,
+    public BookingDto save(@AuthenticationPrincipal CustomUserDetails userDetails,
                           @RequestBody BookingRequest request) {
         return bookingService.save(userDetails.getUser(), request);
     }
@@ -40,6 +41,7 @@ public class BookingController {
         return bookingService.putCancelStatus(id);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
     @PatchMapping("/{id}/paid")
     public BookingDto putPaidStatus(@PathVariable Integer id) {
         return bookingService.putPaidStatus(id);

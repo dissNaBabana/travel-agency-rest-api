@@ -1,21 +1,15 @@
 package md.ceiti.spring.controller.forPrivate.admin;
-
 import md.ceiti.spring.entity.BookingStatus;
 import md.ceiti.spring.entity.dto.booking.BookingContainerDto;
-import md.ceiti.spring.entity.dto.tour.TourContainerDto;
-import md.ceiti.spring.entity.dto.user.UserContainerDto;
-import md.ceiti.spring.entity.dto.user.UserDto;
 import md.ceiti.spring.entity.dto.user.UserWithoutPasswordContainerDto;
 import md.ceiti.spring.entity.dto.user.UserWithoutPasswordDto;
-import md.ceiti.spring.security.CustomUserDetails;
 import md.ceiti.spring.service.BookingService;
 import md.ceiti.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
-
+@PreAuthorize("hasAnyRole('ADMIN', 'SUPER_ADMIN')")
 @RestController
 @RequestMapping("/api/v1/admin")
 public class AdminAnalyticsController {

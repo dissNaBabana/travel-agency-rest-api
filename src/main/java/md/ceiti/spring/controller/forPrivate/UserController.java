@@ -8,9 +8,11 @@ import md.ceiti.spring.security.CustomUserDetails;
 import md.ceiti.spring.service.BookingService;
 import md.ceiti.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+@PreAuthorize("hasRole('CLIENT')")
 @RestController
 @RequestMapping("/api/v1/clients")
 public class UserController {
