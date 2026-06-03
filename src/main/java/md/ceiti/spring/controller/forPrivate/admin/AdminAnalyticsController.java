@@ -45,6 +45,9 @@ public class AdminAnalyticsController {
         return userService.findClient(id);
     }
 
-
+    @GetMapping("/clients/{id}/bookings")
+    public BookingContainerDto findBookingsByClientId(@PathVariable Integer id){
+        return bookingService.findBookingsByClientId(id);
+    }
 
 }

@@ -96,4 +96,14 @@ public class BookingService {
         }
         return booking.toDto();
     }
+
+    public BookingContainerDto findBookingsByClientId(Integer id){
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User with id " + id + " not found"));
+        List<BookingDto> bookings = bookingRepository.findByUser(user)
+                .stream()
+                .map(Booking::toDto)
+                .toList();
+        return new BookingContainerDto(bookings);
+    }
 }

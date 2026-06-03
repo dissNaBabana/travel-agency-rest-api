@@ -1,9 +1,11 @@
 package md.ceiti.spring.controller.forPrivate;
 
+import md.ceiti.spring.entity.dto.booking.BookingContainerDto;
 import md.ceiti.spring.entity.dto.request.UserRequest;
 import md.ceiti.spring.entity.dto.tour.TourContainerDto;
 import md.ceiti.spring.entity.dto.user.UserDto;
 import md.ceiti.spring.security.CustomUserDetails;
+import md.ceiti.spring.service.BookingService;
 import md.ceiti.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,10 +15,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/clients")
 public class UserController {
     private final UserService userService;
+    private final BookingService bookingService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, BookingService bookingService) {
         this.userService = userService;
+        this.bookingService = bookingService;
     }
 
     @GetMapping("/me")
@@ -52,4 +56,10 @@ public class UserController {
                                @PathVariable Integer tourId) {
         userService.deleteFavorite(userDetails.getUser(), tourId);
     }
+
+    @GetMapping("/me/bookings")
+    public BookingContainerDto findBookingsByClientId(@AuthenticationPrincipal CustomUserDetails userDetails){
+        return bookingService.findBookingsByClientId(userDetails.getUser().getUserId());
+    }
+
 }
