@@ -106,4 +106,13 @@ public class BookingService {
                 .toList();
         return new BookingContainerDto(bookings);
     }
+
+    public BookingContainerDto filter(BookingStatus status){
+            List<BookingDto> bookings = bookingRepository.findByStatus(status).stream()
+                    .map(Booking::toDto)
+                    .collect(Collectors.toList());
+
+            return new BookingContainerDto(bookings);
+    }
+
 }

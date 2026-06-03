@@ -1,6 +1,8 @@
 package md.ceiti.spring.controller.forPrivate.admin;
 
+import md.ceiti.spring.entity.BookingStatus;
 import md.ceiti.spring.entity.dto.booking.BookingContainerDto;
+import md.ceiti.spring.entity.dto.tour.TourContainerDto;
 import md.ceiti.spring.entity.dto.user.UserContainerDto;
 import md.ceiti.spring.entity.dto.user.UserDto;
 import md.ceiti.spring.entity.dto.user.UserWithoutPasswordContainerDto;
@@ -10,10 +12,9 @@ import md.ceiti.spring.service.BookingService;
 import md.ceiti.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.math.BigDecimal;
 
 @RestController
 @RequestMapping("/api/v1/admin")
@@ -48,6 +49,13 @@ public class AdminAnalyticsController {
     @GetMapping("/clients/{id}/bookings")
     public BookingContainerDto findBookingsByClientId(@PathVariable Integer id){
         return bookingService.findBookingsByClientId(id);
+    }
+
+    @GetMapping("/stats/bookings/filter")
+    public BookingContainerDto filter(@RequestParam()BookingStatus status){
+
+        return bookingService.filter(status);
+
     }
 
 }
