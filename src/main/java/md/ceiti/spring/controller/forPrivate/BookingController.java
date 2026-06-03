@@ -1,4 +1,4 @@
-package md.ceiti.spring.controller;
+package md.ceiti.spring.controller.forPrivate;
 
 import md.ceiti.spring.entity.dto.booking.BookingContainerDto;
 import md.ceiti.spring.entity.dto.booking.BookingDto;
@@ -17,11 +17,6 @@ public class BookingController {
     @Autowired
     public BookingController(BookingService bookingService) {
         this.bookingService = bookingService;
-    }
-
-    @GetMapping
-    public BookingContainerDto findAll() {
-        return bookingService.findAll();
     }
 
     @GetMapping("/{id}")

@@ -1,10 +1,8 @@
-package md.ceiti.spring.controller;
+package md.ceiti.spring.controller.forPrivate;
 
 import md.ceiti.spring.entity.dto.city.CityContainerDto;
 import md.ceiti.spring.entity.dto.city.CityDto;
-import md.ceiti.spring.entity.dto.country.CountryDto;
 import md.ceiti.spring.entity.dto.request.CityRequest;
-import md.ceiti.spring.entity.dto.request.CountryRequest;
 import md.ceiti.spring.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

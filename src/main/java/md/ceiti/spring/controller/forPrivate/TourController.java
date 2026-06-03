@@ -1,13 +1,9 @@
-package md.ceiti.spring.controller;
+package md.ceiti.spring.controller.forPrivate;
 
-import md.ceiti.spring.entity.Tour;
-import md.ceiti.spring.entity.dto.hotel.HotelDto;
-import md.ceiti.spring.entity.dto.request.HotelRequest;
 import md.ceiti.spring.entity.dto.request.TourRequest;
 import md.ceiti.spring.entity.dto.tour.TourContainerDto;
 import md.ceiti.spring.entity.dto.tour.TourDto;
 import md.ceiti.spring.service.TourService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;

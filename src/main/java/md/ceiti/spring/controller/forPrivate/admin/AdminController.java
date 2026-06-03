@@ -1,16 +1,11 @@
-package md.ceiti.spring.controller;
+package md.ceiti.spring.controller.forPrivate.admin;
 
-import md.ceiti.spring.entity.dto.city.CityContainerDto;
 import md.ceiti.spring.entity.dto.user.UpdateRoleDto;
 import md.ceiti.spring.entity.dto.user.UserDto;
 import md.ceiti.spring.entity.dto.user.UserWithoutPasswordContainerDto;
 import md.ceiti.spring.entity.dto.user.UserWithoutPasswordDto;
-import md.ceiti.spring.security.CustomUserDetails;
 import md.ceiti.spring.service.UserService;
-import org.hibernate.boot.internal.Abstract;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

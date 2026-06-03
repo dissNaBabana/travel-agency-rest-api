@@ -44,6 +44,13 @@ public class UserService {
                 .collect(Collectors.toList());
         return new UserWithoutPasswordContainerDto(users);
     }
+
+    public UserWithoutPasswordDto findClient(Integer id){
+        return userRepository.findByUserIdAndRole(id, UserRole.CLIENT)
+                .map(User::toDtoWithoutPassword)
+                .orElseThrow(() -> new IllegalArgumentException("User with id" + id + "not founded"));
+
+    }
     public UserWithoutPasswordContainerDto findAllAdmins(){
         List<UserWithoutPasswordDto> users = userRepository.findByRole(UserRole.ADMIN).stream()
                 .map(User::toDtoWithoutPassword)

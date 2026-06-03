@@ -1,4 +1,4 @@
-package md.ceiti.spring.controller;
+package md.ceiti.spring.controller.forPrivate;
 
 import md.ceiti.spring.entity.dto.country.CountryContainerDto;
 import md.ceiti.spring.entity.dto.country.CountryDto;

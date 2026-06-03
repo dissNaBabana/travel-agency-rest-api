@@ -1,16 +1,9 @@
-package md.ceiti.spring.controller;
+package md.ceiti.spring.controller.forPrivate;
 
-import md.ceiti.spring.entity.User;
-import md.ceiti.spring.entity.dto.hotel.HotelContainerDto;
-import md.ceiti.spring.entity.dto.hotel.HotelDto;
-import md.ceiti.spring.entity.dto.request.HotelRequest;
 import md.ceiti.spring.entity.dto.request.UserRequest;
 import md.ceiti.spring.entity.dto.tour.TourContainerDto;
-import md.ceiti.spring.entity.dto.user.UserContainerDto;
 import md.ceiti.spring.entity.dto.user.UserDto;
-import md.ceiti.spring.entity.dto.user.UserWithoutPasswordContainerDto;
 import md.ceiti.spring.security.CustomUserDetails;
-import md.ceiti.spring.service.HotelService;
 import md.ceiti.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

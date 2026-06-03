@@ -1,9 +1,7 @@
-package md.ceiti.spring.controller;
+package md.ceiti.spring.controller.forPrivate;
 
-import md.ceiti.spring.entity.dto.city.CityDto;
 import md.ceiti.spring.entity.dto.hotel.HotelContainerDto;
 import md.ceiti.spring.entity.dto.hotel.HotelDto;
-import md.ceiti.spring.entity.dto.request.CityRequest;
 import md.ceiti.spring.entity.dto.request.HotelRequest;
 import md.ceiti.spring.service.HotelService;
 import org.springframework.beans.factory.annotation.Autowired;

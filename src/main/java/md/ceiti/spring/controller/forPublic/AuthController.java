@@ -1,11 +1,9 @@
-package md.ceiti.spring.controller;
+package md.ceiti.spring.controller.forPublic;
 
 import jakarta.servlet.http.HttpServletRequest;
-import md.ceiti.spring.entity.dto.city.CityDto;
 import md.ceiti.spring.entity.dto.jwt.JwtAuthenticatorDto;
 import md.ceiti.spring.entity.dto.jwt.RefreshTokenDto;
 import md.ceiti.spring.entity.dto.jwt.UserCredentialsDto;
-import md.ceiti.spring.entity.dto.request.CityRequest;
 import md.ceiti.spring.entity.dto.request.UserRequest;
 import md.ceiti.spring.entity.dto.user.UserDto;
 import md.ceiti.spring.security.jwt.TokenBlacklistService;
@@ -13,7 +11,6 @@ import md.ceiti.spring.service.AuthService;
 import md.ceiti.spring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
