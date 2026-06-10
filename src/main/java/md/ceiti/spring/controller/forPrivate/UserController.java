@@ -12,7 +12,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-@PreAuthorize("hasRole('CLIENT')")
 @RestController
 @RequestMapping("/api/v1/clients")
 public class UserController {

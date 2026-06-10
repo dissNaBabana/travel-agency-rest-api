@@ -34,7 +34,22 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/auth/**").permitAll()
-                        .requestMatchers("/api/v1/auth/logout").authenticated()
+
+                        .requestMatchers(
+                                "/api/v1/tours/**",
+                                "/api/v1/countries/**",
+                                "/api/v1/hotels/**",
+                                "/api/v1/cities/**"
+                        ).permitAll()
+
+                        .requestMatchers(
+                                "/api/v1/bookings/**",
+                                "/api/v1/profile/**",
+                                "/api/v1/favorites/**"
+                        ).authenticated()
+
+                        .requestMatchers("/api/v1/admin/**").hasAnyRole("ADMIN", "SUPER_ADMIN")
+
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

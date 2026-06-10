@@ -67,7 +67,7 @@ public class Tour {
         this.maxPeople = maxPeople;
         this.availablePlaces = availablePlaces;
         this.isHot = isHot;
-        this.createdAt = createdAt;
+        this.createdAt = LocalDate.now();
     }
 
     public Tour(String title, String description, Country country, Hotel hotel, BigDecimal price, LocalDate startDate, LocalDate endDate, Integer maxPeople, Integer availablePlaces, Boolean isHot) {
@@ -81,6 +81,8 @@ public class Tour {
         this.maxPeople = maxPeople;
         this.availablePlaces = availablePlaces;
         this.isHot = isHot;
+        this.createdAt = LocalDate.now();
+
     }
 
     public Tour(Integer tourId, String title, String description, Country country, Hotel hotel, BigDecimal price, LocalDate startDate, LocalDate endDate, Integer maxPeople, Integer availablePlaces, Boolean isHot) {
@@ -95,6 +97,7 @@ public class Tour {
         this.maxPeople = maxPeople;
         this.availablePlaces = availablePlaces;
         this.isHot = isHot;
+        this.createdAt = LocalDate.now();
     }
 
     public Integer getTourId() {

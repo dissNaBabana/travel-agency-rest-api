@@ -32,8 +32,8 @@ public class TourController {
     @GetMapping("/filter")
     public TourContainerDto filter(
             @RequestParam(required = false) Integer countryId,
-            @RequestParam() BigDecimal minPrice,
-            @RequestParam() BigDecimal maxPrice) {
+            @RequestParam(required = false) BigDecimal minPrice,
+            @RequestParam(required = false) BigDecimal maxPrice) {
 
         return tourService.filter(countryId, minPrice, maxPrice);
 

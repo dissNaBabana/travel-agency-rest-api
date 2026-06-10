@@ -65,26 +65,24 @@ public class TourService {
                 .collect(Collectors.toList());
         return new TourContainerDto(tours);
     }
+    public TourContainerDto filter(Integer countryId, BigDecimal minPrice, BigDecimal maxPrice) {
+        BigDecimal min = minPrice != null ? minPrice : BigDecimal.ZERO;
+        BigDecimal max = maxPrice != null ? maxPrice : new BigDecimal("999999999");
 
-    public TourContainerDto filter(Integer countryId, BigDecimal minPrise, BigDecimal maxPrise){
-        if(countryId != null){
+        List<TourDto> tours;
+
+        if (countryId != null) {
             Country country = countryRepository.findById(countryId)
-                    .orElseThrow(() -> new IllegalArgumentException("City with id " + countryId + " not found"));;
-
-            List<TourDto> tours = tourRepository.findByCountryAndPriceBetween(country, minPrise, maxPrise).stream()
-                    .map(Tour::toDto)
-                    .collect(Collectors.toList());
-
-            return new TourContainerDto(tours);
+                    .orElseThrow(() -> new IllegalArgumentException("Country with id " + countryId + " not found"));
+            tours = tourRepository.findByCountryAndPriceBetween(country, min, max)
+                    .stream().map(Tour::toDto).collect(Collectors.toList());
+        } else {
+            tours = tourRepository.findByPriceBetween(min, max)
+                    .stream().map(Tour::toDto).collect(Collectors.toList());
         }
-        else {
-            List<TourDto> tours = tourRepository.findByPriceBetween(minPrise, maxPrise).stream()
-                    .map(Tour::toDto)
-                    .collect(Collectors.toList());
 
-            return new TourContainerDto(tours); }
+        return new TourContainerDto(tours);
     }
-
     public TourDto save(TourRequest request){
         Country country = countryRepository.findById(request.getCountryId())
                 .orElseThrow(() -> new IllegalArgumentException("Country with id " + request.getCountryId() + " not found"));;

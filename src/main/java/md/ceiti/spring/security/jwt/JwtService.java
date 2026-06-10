@@ -4,7 +4,9 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SecurityException;
+import md.ceiti.spring.entity.User;
 import md.ceiti.spring.entity.dto.jwt.JwtAuthenticatorDto;
+import md.ceiti.spring.repository.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,12 +22,23 @@ public class JwtService {
     private final Logger LOGGER = LogManager.getLogger(JwtService.class);
     @Value("${jwt.secret}")
     private String jwtSecret;
+    private final UserRepository userRepository;
+
+    public JwtService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public JwtAuthenticatorDto generateAuthToken(String email){
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("User with email " + email + " not found"));
         JwtAuthenticatorDto jwtDto = new JwtAuthenticatorDto();
         jwtDto.setToken(generateJwtToken(email));
         jwtDto.setRefreshToken(generateRefreshJwtToken(email));
-            return jwtDto;
+        jwtDto.setUserId(user.getUserId());
+        jwtDto.setUserName(user.getFirstName());
+        jwtDto.setEmail(email);
+        jwtDto.setRole(user.getRole().name());
+        return jwtDto;
     }
 
     public JwtAuthenticatorDto refreshBaseToken(String email, String refreshToken){
@@ -69,7 +82,7 @@ public class JwtService {
     private String generateJwtToken(String email){
         Date date = Date.from(
                 LocalDateTime.now()
-                        .plusMinutes(10)
+                        .plusMinutes(360)
                         .atZone(ZoneId.systemDefault())
                         .toInstant()
         );
