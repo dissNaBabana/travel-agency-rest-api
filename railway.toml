@@ -1,0 +1,8 @@
+[build]
+builder = "railpack"
+
+[build.args]
+buildCommand = "./mvnw -B -DskipTests clean install"
+
+[deploy]
+startCommand = "java -Dserver.port=$PORT $JAVA_OPTS -jar target/*.jar"
